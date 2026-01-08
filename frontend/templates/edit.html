@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <style>
+        body { font-family: Arial; background: #f2f2f2; }
+        .box {
+            width: 400px;
+            margin: 80px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Edit Student</h2>
+
+    <form method="post">
+        <input type="text" name="name" value="{{ student.name }}" required>
+        <input type="number" name="age" value="{{ student.age }}" required>
+        <input type="text" name="qualification" value="{{ student.qualification }}" required>
+        <input type="number" name="graduation_year" value="{{ student.graduation_year }}" required>
+        <textarea name="address" required>{{ student.address }}</textarea>
+        <input type="email" name="email" value="{{ student.email }}" required>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+</body>
+</html>
