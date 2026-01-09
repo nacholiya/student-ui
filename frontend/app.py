@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 app.secret_key = "admin-secret-key"
 
-BACKEND_URL = "http://127.0.0.1:5001"
+BACKEND_URL = "http://backend:5001"
 
 # ---------- LOGIN ----------
 @app.route("/login", methods=["GET", "POST"])
@@ -23,7 +23,7 @@ def logout():
     session.pop("admin", None)
     return redirect(url_for("login"))
 
-# ---------- REGISTER ----------
+    # ---------- REGISTER ----------
 @app.route("/")
 def register():
     return render_template("register.html")
@@ -59,4 +59,4 @@ def backend():
     return render_template("backend.html", students=students)
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=False)
