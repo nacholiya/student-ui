@@ -48,7 +48,7 @@ jobs:
               cd frontend
               python -c "import app"
 
-    docker-build:
+    docker-build-and-push :
         runs-on: ubuntu-latest
         needs: [backend-checks, frontend-checks]
         steps:
@@ -70,10 +70,6 @@ jobs:
                 cd frontend
                 docker build -t ${{ secrets.DOCKER_USERNAME }}/student-ui-frontend:latest .
 
-    docker-push:
-        runs-on: ubuntu-latest
-        needs: [docker-build]
-        steps:
             - name: Push Backend Image to Docker Hub
               run: |
                 docker push ${{ secrets.DOCKER_USERNAME }}/student-ui-backend:latest
