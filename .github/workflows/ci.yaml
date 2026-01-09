@@ -69,3 +69,11 @@ jobs:
               run: |
                 cd frontend
                 docker build -t ${{ secrets.DOCKER_USERNAME }}/student-ui-backend:latest .
+
+            - name: Push Backend Image to Docker Hub
+              run: |
+                docker push ${{ secrets.DOCKER_USERNAME }}/student-ui-backend:latest
+
+            - name: Push Frontend Image to Docker Hub
+              run: |
+                docker push ${{ secrets.DOCKER_USERNAME }}/student-ui-frontend:latest
