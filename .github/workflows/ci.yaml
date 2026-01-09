@@ -6,7 +6,7 @@ on:
         - main
 
 jobs:
-    build:
+    backend-checks:
         runs-on: ubuntu-latest
         steps:
           - name: Checkout Code
@@ -16,16 +16,35 @@ jobs:
             uses: actions/setup-python@v5
             with:
               python-version: "3.12"
-          
-          - name: Verify Python Version
-            run: python --version
 
           - name : Install Dependencies
             run : |
               cd backend
               pip install -r requirements.txt
             
-          - name: Backend Basic Import Check
+          - name: Backend Basic Import Checks
             run: |
               cd backend
               python -c "import app"
+    
+    frontend-checks:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Code
+            uses: actions/checkout@v4
+
+          - name: Set up Python
+            uses: actions/setup-python@v5
+            with:
+              python-version: "3.12"
+
+          - name: Install Dependencies
+            run: |
+              cd frontend
+              pip install -r requirements.txt
+
+          - name: Frontend Basic Import Checks
+            run: |
+              cd frontend
+              python -c "import-app"
+           
