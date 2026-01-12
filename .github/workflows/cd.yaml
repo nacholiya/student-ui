@@ -62,3 +62,24 @@ jobs:
             
             echo "=== Available Docker images ==="
             docker images | grep student-ui
+
+      - name: Run Backend Container
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "=== Stopping existing backend container (if any) ==="
+            docker stop student-ui-backend || true
+            docker rm student-ui-backend || true
+
+            echo "=== Running backend container ==="
+            docker run -d \
+                --name student-ui-backend \
+                --network student-ui-net \
+                -p 5001:5001 \
+                ${{ secrets.DOCKER_USERNAME }}/student-ui-backend:latest
+            
+            echo "=== Running containers ==="
+            docker ps
