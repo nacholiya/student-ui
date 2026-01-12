@@ -46,3 +46,19 @@ jobs:
 
             echo "=== Verify Docker networks ==="
             docker network ls
+
+      - name: Pull Docker Images on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "=== Pulling backend image ==="
+            docker pull ${{ secrets.DOCKER_USERNAME }}/student-ui-backend:latest
+
+            echo "=== Pulling frontend image ==="
+            docker pull ${{ secrets.DOCKER_USERNAME }}/student-ui-frontend:latest
+            
+            echo "=== Available Docker images ==="
+            docker images | grep student-ui
