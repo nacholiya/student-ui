@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests
+import os
 
 app = Flask(__name__)
 app.secret_key = "admin-secret-key"
 
-BACKEND_URL = "http://backend:5001"
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:5001")
 
 # ---------- LOGIN ----------
 @app.route("/login", methods=["GET", "POST"])

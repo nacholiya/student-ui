@@ -31,6 +31,7 @@ terraform.tfstate.backup
 *.pem
 *.key
 *.pub
+student-ui-key
 
 ####################################
 # Docker
