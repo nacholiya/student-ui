@@ -17,3 +17,19 @@ jobs:
             echo "Connected via GitHub Actions"
             whoami
             pwd
+
+      - name: Verify Docker Installation and Permissions
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "=== Docker version ==="
+            echo docker --version
+
+            echo "=== Docker service status ==="
+            systemctl is-active docker
+
+            echo "=== Docker permission check ==="
+            docker ps
