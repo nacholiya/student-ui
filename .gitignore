@@ -1,16 +1,51 @@
-# Virtual environments
+####################################
+# Python
+####################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+####################################
+# Virtual Environments
+####################################
 venv/
+.env
+.env.*
 backend/venv/
 frontend/venv/
 
-# Environment variables
-.env
-backend/.env
-frontend/.env
+####################################
+# Terraform
+####################################
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.*
 
-# Python cache
-__pycache__/
-*.pyc
+####################################
+# SSH Keys (VERY IMPORTANT)
+####################################
+*.pem
+*.key
+*.pub
 
-# OS files
+####################################
+# Docker
+####################################
+*.log
+
+####################################
+# OS / Editor
+####################################
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+####################################
+# GitHub Actions artifacts (safety)
+####################################
+*.out

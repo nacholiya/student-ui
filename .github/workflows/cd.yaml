@@ -1,0 +1,11 @@
+name: CD - Deploy on EC2
+
+on:
+  workflow_dispatch:
+
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder Step
+        run: echo "CD workflow skleton is resdy"
