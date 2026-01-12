@@ -26,10 +26,23 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             echo "=== Docker version ==="
-            echo docker --version
+            docker --version
 
             echo "=== Docker service status ==="
             systemctl is-active docker
 
             echo "=== Docker permission check ==="
             docker ps
+
+      - name: Creating Docker Network
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "=== Creating student-ui network (if not exists) ==="
+            docker network create student-ui-net || echo "Network already exists"
+
+            echo "=== Verify Docker networks ==="
+            docker network ls
