@@ -14,8 +14,6 @@ This project demonstrates **real DevOps workflows** used in industry:
 
 ![Architecture Diagram](/Architecture-Diagram/architecture.png)
 
-> This diagram uses official AWS, Docker, and GitHub symbols.
-
 ---
 
 ## 🧠 Key Concepts Demonstrated
@@ -84,10 +82,11 @@ student-ui/
 
 ## 🐳 Docker Images
 
-| Service | Image |
+| Service | Image | 
 |------|------|
-| Backend | `dockerhub-username/student-ui-backend:latest` |
-| Frontend | `dockerhub-username/student-ui-frontend:latest` |
+| Backend | ```dockerhub-username/student-ui-backend:latest``` |
+|          |                                                    |
+| Frontend | ```dockerhub-username/student-ui-frontend:latest``` |
 
 ---
 
