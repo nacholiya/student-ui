@@ -2,6 +2,8 @@ from backend.utils.validators import validate_student_payload
 from backend.utils.response import success_response, error_response
 from flask import Blueprint, request, jsonify
 from backend.services.student_service import create_student, fetch_students
+from backend.db.exceptions import DatabaseError
+
 
 
 students_bp = Blueprint("students", __name__)
@@ -20,10 +22,10 @@ def add_student():
             {"message": "Your data is saved successfully"},
             201
         )
-    except Exception as e:
+    except DatabaseError as e:
         print("DB ERROR:", e)
         return error_response(
-            "Database is not connected. Data is not saved",
+            "Failed to save student data",
             500
         )
 
@@ -33,7 +35,7 @@ def get_students():
     try:
         students = fetch_students()
         return success_response(students, 200)
-    except Exception as e:
+    except DatabaseError as e:
         print("DB ERROR:", e)
         return error_response(
             "Failed to fetch students from database",

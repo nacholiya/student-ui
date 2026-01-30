@@ -1,37 +1,58 @@
 from backend.db.connection import get_db_connection
+from backend.db.exceptions import DatabaseError
 
 
 def create_student(data):
-    query = """
-        INSERT INTO students
-        (name, age, qualification, graduation_year, address, email)
-        VALUES (%s, %s, %s, %s, %s, %s)
-    """
+    conn = None
+    cursor = None
 
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
-    cursor.execute(query, (
-        data["name"],
-        data["age"],
-        data["qualification"],
-        data["graduation_year"],
-        data["address"],
-        data["email"]
-    ))
+        query = """
+            INSERT INTO students
+            (name, age, qualification, graduation_year, address, email)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+        cursor.execute(query, (
+            data["name"],
+            data["age"],
+            data["qualification"],
+            data["graduation_year"],
+            data["address"],
+            data["email"]
+        ))
+
+        conn.commit()
+
+    except Exception as e:
+        raise DatabaseError("Failed to create student") from e
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
 
 def fetch_students():
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    conn = None
+    cursor = None
 
-    cursor.execute("SELECT * FROM students")
-    students = cursor.fetchall()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
 
-    cursor.close()
-    conn.close()
+        cursor.execute("SELECT * FROM students")
+        return cursor.fetchall()
 
-    return students
+    except Exception as e:
+        raise DatabaseError("Failed to fetch students") from e
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
